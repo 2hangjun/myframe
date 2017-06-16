@@ -1,0 +1,7 @@
+<IfModule mod_rewrite.c>
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteRule ^(.*)$ index.php/$1 [QSA,PT,L]		//规则在apache fastcgi模式下会导致No input file specified.	;使用下面这种
+RewriteRule ^(.*)$ index.php [L,E=PATH_INFO:$1]
+</IfModule>
