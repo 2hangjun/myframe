@@ -11,5 +11,6 @@ class indexCtrl
 
 	function index(){
 		echo 44444444;
+		$model = new \core\lib\model();
 	}
 }
