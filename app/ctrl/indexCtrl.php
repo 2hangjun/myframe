@@ -1,16 +1,22 @@
 <?php
 namespace app\ctrl;
 
-class indexCtrl
+class indexCtrl extends \core\kernel
 {
 	
 	function __construct()
 	{
-		echo 123;
+		// parent::__construct();
 	}
 
 	function index(){
-		echo 44444444;
-		$model = new \core\lib\model();
+		// echo 44444444;
+		//调用模型类（对数据库的操作）
+		// $model = new \core\lib\model();
+		
+		$data = 'hello world';
+		//视图
+		$this->assign('data',$data);
+		$this->display('index.html');
 	}
 }

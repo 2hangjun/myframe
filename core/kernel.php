@@ -4,6 +4,11 @@ namespace core;
 class kernel
 {
 	public static $classMap = array();
+	public $assign;
+
+	public function __construct(){
+		// echo 11114564562;
+	}
 
 	static public function run()
 	{
@@ -42,6 +47,19 @@ class kernel
 			}else{
 				return false;
 			}
+		}
+	}
+
+	public function assign($name,$data){
+		$this->assign[$name] = $data;
+	}
+
+	public function display($file){
+		$file = APP.'/view/'.$file;
+		if($file){
+			//打散数组，让每一个值对，变成单独的变量
+			extract($this->assign);
+			include $file;
 		}
 	}
 
