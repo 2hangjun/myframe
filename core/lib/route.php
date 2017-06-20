@@ -1,6 +1,6 @@
 <?php
 namespace core\lib;
-
+use core\lib\conf;
 class route
 {
 	public $ctrl;
@@ -30,7 +30,7 @@ class route
 				$this->action = $pathArr[1];
 				unset($pathArr[1]);
 			}else{
-				$this->action = 'index';
+				$this->action = conf::get('ACTION','route');
 			}
 
 			//URl多余部分转换成GET
@@ -50,8 +50,8 @@ class route
 			}
 		}else{
 			//当域名后面没有任何值和URL，的时候默认为index控制器和index方法
-			$this->ctrl = 'index';
-			$this->action = 'index';
+			$this->ctrl = conf::get('CTRL','route');
+			$this->action = conf::get('ACTION','route');
 		}
 	}
 }

@@ -6,7 +6,7 @@
  * 3.启动框架
  */
 
-define('APP_DIR',realpath('./'));
+define('APP_DIR',realpath('./'));   //IMOOC
 define('CORE',APP_DIR.'/core');
 define('APP',APP_DIR.'/app');
 define('MODULE','app');

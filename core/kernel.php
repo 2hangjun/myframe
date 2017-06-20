@@ -8,6 +8,7 @@ class kernel
 
 	public function __construct(){
 		// echo 11114564562;
+		echo header('Content-type:text/html;charset=utf-8');
 	}
 
 	static public function run()
