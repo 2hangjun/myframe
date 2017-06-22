@@ -9,9 +9,11 @@ class conf
 		 * 2.判断配置是否存在
 		 * 3.缓存配置
 		 */
+		dd(self::$conf);
 		if(isset(self::$conf[$file])){
 			return self::$conf[$file][$name];
 		}else{
+			dd(1);
 			$path = APP_DIR.'/core/config/'.$file.'.php';
 			if(is_file($path)){
 				$conf = include $path;

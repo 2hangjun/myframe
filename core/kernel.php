@@ -13,6 +13,9 @@ class kernel
 
 	static public function run()
 	{
+		\core\lib\log::init();
+		\core\lib\log::log('test');
+		\core\lib\log::log('test1');
 		$route 		= new \core\lib\route();
 		$ctrlClass 	= $route->ctrl;
 		$action 	= $route->action;
