@@ -1,6 +1,6 @@
 <?php
 namespace app\ctrl;
-
+use app\model\cmodel;
 class indexCtrl extends \core\kernel
 {
 	
@@ -10,15 +10,13 @@ class indexCtrl extends \core\kernel
 	}
 
 	function index(){
-		// echo 44444444;
 		//调用模型类（对数据库的操作）
-		$model = new \core\lib\model();
-		
-		//加载获取配置信息
-		//CTRL:key值，route：配置文件名
-		$temp = \core\lib\conf::get('CTRL','route'); 
-		print_r($temp);
-		$data = 'hello world';
+		$model = new cmodel('names');
+		$data = array('name'=>'b');
+		$where = array();
+		$res = $model->_update(array('name'=>'bbbb'),array('id'=>3));
+		dd($res);
+		die;
 		//视图
 		$this->assign('data',$data);
 		$this->display('index.html');

@@ -7,15 +7,12 @@ class kernel
 	public $assign;
 
 	public function __construct(){
-		// echo 11114564562;
 		echo header('Content-type:text/html;charset=utf-8');
 	}
 
 	static public function run()
 	{
-		\core\lib\log::init();
-		\core\lib\log::log('test');
-		\core\lib\log::log('test1');
+		\core\lib\log::init();	//初始化日志类
 		$route 		= new \core\lib\route();
 		$ctrlClass 	= $route->ctrl;
 		$action 	= $route->action;

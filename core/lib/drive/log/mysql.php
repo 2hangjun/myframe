@@ -2,7 +2,7 @@
 namespace core\lib\drive\log;
 class mysql
 {
-	//文件日志
+	//数据存放日志
 	public function log($name){
 		dd($name);
 	}
