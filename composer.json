@@ -1,0 +1,21 @@
+{
+	"name":"myframe",
+	"description":"php myframe",
+	"type":"framework",
+	"keyword":[
+		"PHP","PHP Framework"
+	],
+	"require":{
+		"php":">=5.3.0",
+		"filp/whoops":"*",
+		"symfony/var-dumper":"*",
+		"catfan/medoo":"*"
+	},
+	"repositories": {
+	    "packagist": {
+	        "type": "composer",
+	        "url": "https://packagist.phpcomposer.com"
+	    }
+	}
+
+}
