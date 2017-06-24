@@ -13,8 +13,11 @@ class indexCtrl extends \core\kernel
 		//调用模型类（对数据库的操作）
 		$model = new cmodel('names');
 		$data = array('name'=>'b');
-		$where = array();
-		$res = $model->_update(array('name'=>'bbbb'),array('id'=>3));
+		$where['field'] = array('*');
+		$where['where'] = array('id'=>3);
+		$where['join'] = array("[>]account" => array("author_id" => "user_id"));
+		$res = $model->getList(array("[><]ages" => 'id',"[><]heig" => 'name'),'*');
+		dd($model->lastSql());
 		dd($res);
 		die;
 		//视图

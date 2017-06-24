@@ -8,20 +8,7 @@ use \core\lib\model;
 class cmodel extends model
 {
 	public $tabelName='';
-	public $mysqlFun = array(
-		'getList'	=>'select',
-		'getOne'	=>'get',
-		'_insert'	=>'insert',
-		'_delete'	=>'delete',
-		'_update'	=>'update',
-		'_has'		=>'has',
-		'_count'	=>'count',
-		'_replace'	=>'replace'
-		// 'max',
-		// 'min',
-		// 'sum',
-		// 'avg'
-		);
+
 	public function __construct($tabelName=''){
 		parent::__construct();
 		if(!$tabelName){
@@ -31,64 +18,68 @@ class cmodel extends model
 		$this->tabelName = $tabelName;
 	}
 
-	//数据库的操作	//todo
-	public function __call($name,$arguments=''){
-		// echo count($arguments);die;
-		if(empty($name) || !isset($name) || !array_key_exists($name,$this->mysqlFun))
-		{
-			dd('不存在数据库操作方法');die;
+	public function getList($join='*', $columns = null, $where = null)
+	{
+		$res = $this->select($this->tabelName,$join,$columns,$where);
+		return $res;
+	}
+
+	public function getOne($join='*', $columns = null, $where = null)
+	{
+		$res = $this->select($this->tabelName,$join,$columns,$where);
+		return $res;
+	}
+
+	public function _update($data = null, $where = null)
+	{
+		if(empty($data)){
+			dd("请输入需要update的值");
 		}
-		$funName = $this->mysqlFun[$name];
-		// if(empty($arguments) || count($arguments)<=0 || !is_array($arguments)){
-		// 	dd('参数不正确');die;
-		// }
-		$argNum = count($arguments);
-		switch ($funName) {
-			case 'update':	//$field($data):更新数据
-			case 'select':	//$field:返回字段
-			case 'get':		//$field:返回字段
-				//join:	"[>]account" => ["author_id" => "user_id"],具体使用查询手册，默认为空
-				//todo,如果要使用join必须传递3个参加（数组）
-				$join	='';
-				$field	='*';
-				$where	='';
-				switch ($argNum) {
-					case '1':
-						$where = $arguments[0];
-						break;
-					case '2':
-						$field = $arguments[0];
-						$where = $arguments[1];
-						break;
-					case '3':
-						$field = $arguments[0];
-						$where = $arguments[1];
-						$join = $arguments[2];
-						break;
-				}
-				if($argNum<3){
-					$res = $this->$funName($this->tabelName,$field,$where);
-				}else{
-					$res = $this->$funName($this->tabelName,$join,$field,$where);
-				}
-				return $res;
-				break;
-			case 'insert':	//$data
-			case 'delete':	//$where
-			case 'has':		//$where
-			case 'count':	//$where
-				$where = isset($arguments[0])?$arguments[0]:'';
-				$res = $this->$funName($this->tabelName,$where);
-				return $res;
-				break;
-			// case 'replace':
-			// 	$res = $this->$funName($this->tabelName, $column, $search, $replace, $where);
-			// 	return $res;
-			// 	break;
-			default:
-				# code...
-				break;
+		$res = $this->update($this->tabelName,$data,$where);
+		return $res;
+	}
+
+	public function _insert($data = null)
+	{
+		if(empty($data)){
+			dd("请输入需要insert的值");
 		}
+		$res = $this->insert($this->tabelName,$data);
+		return $res;
+	}
+
+	public function _del($where = null)
+	{
+		if(empty($where)){
+			dd("请输入where条件，防止误删除。整表删除请使用_delete()方法");
+		}
+		$res = $this->delete($this->tabelName,$where);
+		return $res;
+	}
+
+	public function _delete($where = null)
+	{
+		if(!empty($where)){
+			dd("该方法为整表删除，请勿误操作。使用_del(\$where)筛选删除");
+		}
+		$res = $this->delete($this->tabelName);
+		return $res;
+	}
+
+	public function _has($join = null , $where = null)
+	{
+		$res = $this->has($this->tabelName,$join,$columns,$where);
+		return $res;
+	}
+
+	public function _count($join = null , $columns = null, $where = null)
+	{
+		$res = $this->count($this->tabelName,$join,$columns,$where);
+		return $res;
+	}
+
+	public function lastSql(){
+		return $this->last_query();
 	}
 
 }
