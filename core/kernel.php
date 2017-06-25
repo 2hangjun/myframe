@@ -56,11 +56,22 @@ class kernel
 	}
 
 	public function display($file){
-		$file = APP.'/view/'.$file;
-		if($file){
+		$dir_file = APP.'/view/'.$file;
+		if($dir_file){
 			//打散数组，让每一个值对，变成单独的变量
-			extract($this->assign);
-			include $file;
+			// extract($this->assign);
+			// include $file;
+			// require_once APP.'/vendor/twig/twig/lib/Twig/Autoloader.php';
+			// die;
+			\Twig_Autoloader::register();
+			$loader = new \Twig_Loader_Filesystem(APP.'/view');
+			$twig = new \Twig_Environment($loader, array(
+			    'cache' => APP_DIR.'/cache',
+			    'debug' => DEBUG,		//打开后不缓存
+			));
+			$template = $twig->load($file);
+			$template->display($this->assign?$this->assign:'');
+			// return $twig->render($file, array('name' => 'Fabien'));
 		}
 	}
 
